@@ -5,8 +5,8 @@
 $ rm db/development.sqlite3
 $ bundle exec rake db:migrate
 ...
-foo [5, 6, 7]
-bar(should not be nil) [nil, nil, nil]
+[foo, bar] (should not be nil)
+[[5, nil], [6, nil], [7, nil]]
 ...
 ```
 
@@ -17,8 +17,8 @@ $ bundle exec rake db:migrate VERSION=20170000000000
 $ bundle exec rake db:migrate VERSION=20170000000001
 $ bundle exec rake db:migrate VERSION=20170000000002
 ...
-foo [5, 6, 7]
-bar(should not be nil) [25, 36, 49]
+[foo, bar] (should not be nil)
+[[5, 25], [6, 36], [7, 49]]
 ...
 ```
 
@@ -28,7 +28,7 @@ $ rm db/development.sqlite3
 $ RESET_COLUMN_INFORMATION=true bundle exec rake db:migrate
 $ # ↑ klass.reset_column_information if ENV['RESET_COLUMN_INFORMATION']
 ...
-foo [5, 6, 7]
-bar(should not be nil) [25, 36, 49]
+[foo, bar] (should not be nil)
+[[5, 25], [6, 36], [7, 49]]
 ...
 ```
