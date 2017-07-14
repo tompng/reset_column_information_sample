@@ -1,24 +1,34 @@
-# README
+# reset_column_information sample
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## fail
+```sh
+$ rm db/development.sqlite3
+$ bundle exec rake db:migrate
+...
+foo [5, 6, 7]
+bar(should not be nil) [nil, nil, nil]
+...
+```
 
-Things you may want to cover:
+## success
+```sh
+$ rm db/development.sqlite3
+$ bundle exec rake db:migrate VERSION=20170000000000
+$ bundle exec rake db:migrate VERSION=20170000000001
+$ bundle exec rake db:migrate VERSION=20170000000002
+...
+foo [5, 6, 7]
+bar(should not be nil) [25, 36, 49]
+...
+```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## success
+```sh
+$ rm db/development.sqlite3
+$ RESET_COLUMN_INFORMATION=true bundle exec rake db:migrate
+$ # ↑ klass.reset_column_information if ENV['RESET_COLUMN_INFORMATION']
+...
+foo [5, 6, 7]
+bar(should not be nil) [25, 36, 49]
+...
+```
