@@ -1,0 +1,1 @@
+class Hoge < ApplicationRecord; end
