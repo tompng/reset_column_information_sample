@@ -1,5 +1,15 @@
 # reset_column_information sample
 
+```ruby
+def up
+  add_column :hoges, :bar, :integer
+  klass = Class.new(ActiveRecord::Base) { self.table_name = :hoges }
+  # klass.reset_column_information
+  klass.all.each { |h| h.update! bar: h.foo**2 } # bar should be non_nil
+  remove_column :hoges, :foo
+end
+```
+
 ## fail
 ```
 $ rm db/development.sqlite3
